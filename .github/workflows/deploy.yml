@@ -30,10 +30,15 @@ jobs:
       
       - name: Copy prototype files to root
         run: |
+          # Копируем все файлы из IP-firewall-prototypes в корень
           cp -r IP-firewall-prototypes/* .
-          mkdir -p scripts styles
-          cp IP-firewall-prototypes/scripts/* scripts/ 2>/dev/null || true
-          cp IP-firewall-prototypes/styles/* styles/ 2>/dev/null || true
+          # Убеждаемся, что папки scripts и styles скопированы
+          if [ -d "IP-firewall-prototypes/scripts" ]; then
+            cp -r IP-firewall-prototypes/scripts .
+          fi
+          if [ -d "IP-firewall-prototypes/styles" ]; then
+            cp -r IP-firewall-prototypes/styles .
+          fi
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
