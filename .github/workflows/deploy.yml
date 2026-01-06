@@ -28,22 +28,26 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Copy prototype files to root
+      - name: Prepare deployment directory
         run: |
-          # Копируем все файлы из IP-firewall-prototypes в корень
-          cp -r IP-firewall-prototypes/* .
-          # Убеждаемся, что папки scripts и styles скопированы
+          # Создаем временную папку для деплоя
+          mkdir -p deploy-root
+          # Копируем только файлы прототипа в корень деплоя
+          cp -r IP-firewall-prototypes/* deploy-root/
+          # Убеждаемся, что папки scripts и styles скопированы правильно
           if [ -d "IP-firewall-prototypes/scripts" ]; then
-            cp -r IP-firewall-prototypes/scripts .
+            cp -r IP-firewall-prototypes/scripts deploy-root/ 2>/dev/null || true
           fi
           if [ -d "IP-firewall-prototypes/styles" ]; then
-            cp -r IP-firewall-prototypes/styles .
+            cp -r IP-firewall-prototypes/styles deploy-root/ 2>/dev/null || true
           fi
+          # Проверяем структуру
+          ls -la deploy-root/
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'deploy-root'
       
       - name: Deploy to GitHub Pages
         id: deployment
