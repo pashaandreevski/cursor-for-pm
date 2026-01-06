@@ -30,19 +30,28 @@ jobs:
       
       - name: Prepare deployment directory
         run: |
-          # Создаем временную папку для деплоя
+          # Создаем чистую папку для деплоя
+          rm -rf deploy-root
           mkdir -p deploy-root
-          # Копируем только файлы прототипа в корень деплоя
-          cp -r IP-firewall-prototypes/* deploy-root/
-          # Убеждаемся, что папки scripts и styles скопированы правильно
-          if [ -d "IP-firewall-prototypes/scripts" ]; then
-            cp -r IP-firewall-prototypes/scripts deploy-root/ 2>/dev/null || true
+          
+          # Копируем все содержимое из IP-firewall-prototypes в корень деплоя
+          cp -r IP-firewall-prototypes/. deploy-root/
+          
+          # Удаляем README.md если он есть в прототипе (чтобы не конфликтовал)
+          rm -f deploy-root/README.md deploy-root/README.md.txt 2>/dev/null || true
+          
+          # Проверяем что index.html на месте
+          if [ ! -f "deploy-root/index.html" ]; then
+            echo "ERROR: index.html not found!"
+            exit 1
           fi
-          if [ -d "IP-firewall-prototypes/styles" ]; then
-            cp -r IP-firewall-prototypes/styles deploy-root/ 2>/dev/null || true
-          fi
-          # Проверяем структуру
+          
+          # Показываем структуру для отладки
+          echo "Deployment structure:"
           ls -la deploy-root/
+          echo ""
+          echo "Checking index.html:"
+          head -5 deploy-root/index.html
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
