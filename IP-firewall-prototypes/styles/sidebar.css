@@ -1,0 +1,197 @@
+/* ===============================================
+   SIDEBAR STYLES
+   =============================================== */
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--bg-white);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 200;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+}
+
+.logo-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.menu-toggle {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: all 0.15s ease;
+}
+
+.menu-toggle:hover {
+    background: var(--bg-gray-100);
+    color: var(--text-primary);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    height: 28px;
+}
+
+/* Account Switcher */
+.account-switcher {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
+    cursor: pointer;
+    transition: background 0.15s ease;
+    margin: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+}
+
+.account-switcher:hover {
+    background: var(--bg-gray-100);
+}
+
+.account-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    background: #1e1b4b;
+    color: var(--bg-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.account-name {
+    flex: 1;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.account-switcher .chevron {
+    color: var(--text-muted);
+}
+
+/* Navigation */
+.sidebar-nav {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    overflow-y: auto;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-md);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    transition: all 0.15s ease;
+    margin-bottom: var(--spacing-xs);
+}
+
+.nav-item:hover {
+    background: var(--bg-gray-100);
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.nav-item.active {
+    background: var(--primary-purple-bg);
+    color: var(--primary-purple);
+}
+
+.nav-item.active .nav-icon {
+    color: var(--primary-purple);
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.nav-item span:not(.badge) {
+    flex: 1;
+}
+
+/* Badge */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-new {
+    background: var(--text-primary);
+    color: var(--bg-white);
+}
+
+/* Promo Card */
+.sidebar-promo {
+    padding: var(--spacing-md);
+    margin-top: auto;
+}
+
+.promo-card {
+    background: var(--bg-gray-50);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+}
+
+.sim-card-icon {
+    margin-bottom: var(--spacing-md);
+}
+
+.promo-text {
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.promo-link {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--primary-purple);
+}
+
+.promo-link:hover {
+    color: var(--primary-purple-dark);
+}
+
