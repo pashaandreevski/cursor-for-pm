@@ -3,148 +3,6 @@
 // ===============================================
 
 const DATA = {
-    // Network Profiles (IP Firewall)
-    networkProfiles: [
-        {
-            id: 'np-001',
-            name: 'IoT Device Whitelist',
-            type: 'IP',
-            description: 'Restrict IoT devices to approved cloud endpoints only',
-            created: '2025-12-15T10:30:00Z',
-            modified: '2025-12-28T14:22:00Z',
-            rulesCount: 5,
-            attachedPolicies: ['401301'],
-            rules: `# ================================
-# IoT Firewall - Production
-# ================================
-
-# Allow DNS queries to Google DNS
-ALLOW ip:8.8.8.8 ip:8.8.4.4 OUT udp port:53
-
-# Allow MQTT to IoT broker
-ALLOW ip:203.0.113.10 OUT tcp port:8883
-
-# Allow HTTPS to cloud APIs
-ALLOW cidr:52.95.0.0/16 OUT tcp port:443
-
-# Allow NTP for time sync
-ALLOW ip:129.6.15.28 ip:129.6.15.29 OUT udp port:123
-
-# Block everything else by default
-DENY any OUT any`
-        },
-        {
-            id: 'np-002',
-            name: 'VPN Only Policy',
-            type: 'IP',
-            description: 'Force all traffic through VPN tunnel',
-            created: '2025-11-20T08:15:00Z',
-            modified: '2025-12-20T11:45:00Z',
-            rulesCount: 3,
-            attachedPolicies: ['1441525'],
-            rules: `# ================================
-# VPN-Only Traffic Policy
-# ================================
-
-# Allow VPN tunnel establishment
-ALLOW cidr:10.0.0.0/8 OUT any
-
-# Allow DNS to internal resolver
-ALLOW ip:10.1.1.53 OUT udp port:53
-
-# Deny all public internet access
-DENY any OUT any`
-        },
-        {
-            id: 'np-003',
-            name: 'Payment Terminal Security',
-            type: 'IP',
-            description: 'PCI-DSS compliant firewall for payment devices',
-            created: '2025-10-05T16:00:00Z',
-            modified: '2025-12-01T09:30:00Z',
-            rulesCount: 4,
-            attachedPolicies: ['401301'],
-            rules: `# ================================
-# PCI-DSS Payment Terminal Rules
-# ================================
-
-# Allow payment gateway
-ALLOW ip:198.51.100.10 ip:198.51.100.11 OUT tcp port:443
-
-# Allow transaction processor
-ALLOW cidr:203.0.113.0/24 OUT tcp port:8443
-
-# Allow heartbeat/status check
-ALLOW ip:198.51.100.50 OUT tcp port:9443
-
-# Block all other traffic
-DENY any OUT any`
-        },
-        {
-            id: 'np-004',
-            name: 'Fleet Management Whitelist',
-            type: 'IP',
-            description: 'Restrict fleet tracking devices to approved telematics servers',
-            created: '2025-11-10T09:00:00Z',
-            modified: '2025-12-18T16:45:00Z',
-            rulesCount: 6,
-            attachedPolicies: [],
-            rules: `# ================================
-# Fleet Telematics Rules
-# ================================
-
-# Allow GPS/telematics server
-ALLOW ip:185.199.108.10 ip:185.199.108.11 OUT tcp port:443
-
-# Allow MQTT broker for real-time updates
-ALLOW ip:185.199.109.50 OUT tcp port:8883
-
-# Allow firmware update server
-ALLOW cidr:185.199.110.0/24 OUT tcp port:443
-
-# Allow NTP time sync
-ALLOW ip:129.6.15.28 OUT udp port:123
-
-# Allow DNS
-ALLOW ip:8.8.8.8 OUT udp port:53
-
-# Deny all other traffic
-DENY any OUT any`
-        },
-        {
-            id: 'np-005',
-            name: 'EV Charger Network Policy',
-            type: 'IP',
-            description: 'Network restrictions for electric vehicle charging stations',
-            created: '2025-09-22T11:30:00Z',
-            modified: '2025-12-25T08:15:00Z',
-            rulesCount: 7,
-            attachedPolicies: [],
-            rules: `# ================================
-# EV Charging Station Rules
-# ================================
-
-# Allow OCPP backend (Open Charge Point Protocol)
-ALLOW ip:91.198.174.100 ip:91.198.174.101 OUT tcp port:443
-ALLOW ip:91.198.174.100 OUT tcp port:8080
-
-# Allow payment processing
-ALLOW cidr:104.16.0.0/12 OUT tcp port:443
-
-# Allow remote management
-ALLOW ip:91.198.175.50 OUT tcp port:22
-
-# Allow monitoring/telemetry
-ALLOW ip:91.198.175.60 OUT tcp port:8443
-
-# Allow DNS resolution
-ALLOW ip:1.1.1.1 ip:1.0.0.1 OUT udp port:53
-
-# Block everything else
-DENY any OUT any`
-        }
-    ],
-
     // Service Policies
     servicePolicies: [
         {
@@ -194,25 +52,6 @@ DENY any OUT any`
                         enabled: false,
                         value: null
                     }
-                },
-                ipFirewall: {
-                    enabled: true,
-                    ruleSets: [
-                        {
-                            id: 'fwrs-001',
-                            priority: 1,
-                            networkProfileId: 'np-001',
-                            networkProfileName: 'IoT Device Whitelist',
-                            added: '2025-12-20T10:00:00Z'
-                        },
-                        {
-                            id: 'fwrs-003',
-                            priority: 2,
-                            networkProfileId: 'np-003',
-                            networkProfileName: 'Payment Terminal Security',
-                            added: '2025-12-22T14:30:00Z'
-                        }
-                    ]
                 }
             }
         },
@@ -263,18 +102,6 @@ DENY any OUT any`
                         enabled: false,
                         value: null
                     }
-                },
-                ipFirewall: {
-                    enabled: true,
-                    ruleSets: [
-                        {
-                            id: 'fwrs-002',
-                            priority: 1,
-                            networkProfileId: 'np-002',
-                            networkProfileName: 'VPN Only Policy',
-                            added: '2025-12-22T15:30:00Z'
-                        }
-                    ]
                 }
             }
         }
